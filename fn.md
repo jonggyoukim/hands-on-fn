@@ -473,12 +473,62 @@ try {
 console.log("Hello", name, "from Node!");
 ~~~
 
+저장 후 테스트를 한다.
 ~~~sh
 $ fn run
 Building image app2:0.0.1 
 Hello World from Node!
 ~~~
 
+
+
+테스트에 사용할 test.json 파일은 다음과 같다.
+~~~json
+{
+    "tests": [
+        {
+            "input": {
+                "body": {
+                    "name": "Johnny"
+                }
+            },
+            "output": {
+                "body": {
+                    "message": "Hello Johnny from Node!"
+                }
+            }
+        },
+        {
+            "input": {
+                "body": ""
+            },
+            "output": {
+                "body": {
+                    "message": "Hello World from Node!"
+                }
+            }
+        }
+    ]
+}
+~~~
+
+
+
+테스트를 수행하면 다음과 같다.
+~~~sh
+$ fn test
+Building image app2:0.0.3 
+Running 2 tests on /home/shiftyou/fn/myapp/app2/func.yaml (image: app2:0.0.3):
+Test 1
+PASSED -    ( 1.381575175s )
+
+Test 2
+PASSED -    ( 1.468638162s )
+
+tests run: 2 passed, 0 failed
+~~~
+
+사용자가 입력할 sample.json 파일은 다음과 같다.
 ~~~json
 {
     "name": "JongGyou"
@@ -491,6 +541,7 @@ $ cat sample.jon | fn run
 Building image app2:0.0.1 
 Hello JongGyou from Node!
 ~~~
+
 
 ## Application 배포
 
@@ -522,10 +573,11 @@ myapp
 ├── app2
 │   ├── func.js
 │   ├── func.yaml
-│   └── sample.json
+│   ├── sample.json
+│   └── test.json
 └── app.yaml
 
-13 directories, 8 files
+13 directories, 9 files
 ~~~
 
 application을 배포한다.
