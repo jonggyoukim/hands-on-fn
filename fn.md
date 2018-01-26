@@ -1,8 +1,3 @@
----
-title: "Fn Project"
-date: 2018-01-12T15:19:08+09:00
-draft: false
----
 # Fn Project 가 무엇인가?
 Fn Project는 4개의 주요 컴포넌트로 이루어져 있다.
 
@@ -72,10 +67,10 @@ Fn Project의 전체적인 아키텍처는 다음과 같다.
 # fn
 다운받은 fn 을 수행하면 다음과 같이 나온다.
 ~~~sh
-fn
+$ fn
 ~~~
 
-~~~sh
+~~~txt
 fn 0.4.36
 
 Fn command line tool
@@ -388,10 +383,19 @@ $ curl -d @sample.json http://localhost:8080/r/hello/hello
 {"message":"Hello JongGyou"}
 ~~~
 
+---
 
-# Fn Java Functions Developer Kit (FDK)
+# One application & Two function
 
-Fn Project는 기본적으로 Java9을 지원하는 Developer Kit을 제공한다.
+지금까지 구성한 application은 하나의 application 에 하나의 function으로 구성이 된다. 이제 하나의 application에 두개의 function으로 구성하는 방법을 알아본다.
+
+
+
+
+## 첫번째 Function 생성
+
+Fn Project는 기본적으로 Java9을 지원하는 Developer Kit을 제공한다. 첫번째 function 으로 java로 구성된 function을 생성한다.
+
 기존에 Fn application을 만드는 방법과 같이 --runtime 옵션의 parameter로 `java`를 지정해 주면 된다. 
 (parameter 값은 dotnet, go, java8, java9, java, lambda-nodejs4.3, lambda-node-4, node, php, python, python2.7, python3.6, ruby, rust 이 가능하다.)
 
@@ -447,8 +451,77 @@ return "Hello, " + name + "!"; 구문을
 return "Hello, " + name.trim() + "!"; 으로 수정
 ~~~
 
+## 두번째 Function 생성
+두번째 function은 node 로 구성하도록 한다.
 
+~~~sh
+$ fn init --runtime node
+Runtime: node
+func.yaml created.
+~~~
 
+수행할 func.js 를 다음과 같은 내용으로 만든다.
+~~~node
+name = "World";
+fs = require('fs');
+try {
+	obj = JSON.parse(fs.readFileSync('/dev/stdin').toString())
+	if (obj.name != "") {
+		name = obj.name
+	}
+} catch(e) {}
+console.log("Hello", name, "from Node!");
+~~~
+
+~~~sh
+$ fn run
+Building image app2:0.0.1 
+Hello World from Node!
+~~~
+
+~~~json
+{
+    "name": "JongGyou"
+}
+~~~
+
+사용자의 입력을 함께 수행하면 다음과 같다.
+~~~sh
+$ cat sample.jon | fn run
+Building image app2:0.0.1 
+Hello JongGyou from Node!
+~~~
+
+## Application 배포
+
+현재 디렉토리는 다음과 같다.
+~~~
+myapp
+├── app1
+│   ├── func.yaml
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   └── java
+│       │       └── com
+│       │           └── example
+│       │               └── fn
+│       │                   └── HelloFunction.java
+│       └── test
+│           └── java
+│               └── com
+│                   └── example
+│                       └── fn
+│                           └── HelloFunctionTest.java
+└── app2
+    ├── func.js
+    ├── func.yaml
+    └── sample.json
+
+13 directories, 7 files
+~~~
+
+두개의 function을 가진 application을 배포하기 위해서 app.yaml이 
 ---
 
 fn 명령어의 name 파라메터에 대한 결과는 다음을 참조하면 잘 알수 있다.
