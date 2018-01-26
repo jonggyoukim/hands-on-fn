@@ -494,7 +494,13 @@ Hello JongGyou from Node!
 
 ## Application 배포
 
-현재 디렉토리는 다음과 같다.
+두개의 function을 가진 application을 배포하기 위해서 app.yaml이 필요하다. myapp/app.yaml 을 다음의 내용으로 만든다.
+~~~yaml
+$ cat myapp.yaml
+name: myapp
+~~~
+
+전체 구성되는 디렉토리는 다음과 같다.
 ~~~
 myapp
 ├── app1
@@ -513,16 +519,61 @@ myapp
 │                   └── example
 │                       └── fn
 │                           └── HelloFunctionTest.java
-└── app2
-    ├── func.js
-    ├── func.yaml
-    └── sample.json
+├── app2
+│   ├── func.js
+│   ├── func.yaml
+│   └── sample.json
+└── app.yaml
 
-13 directories, 7 files
+13 directories, 8 files
 ~~~
 
-두개의 function을 가진 application을 배포하기 위해서 app.yaml이 
+application을 배포한다.
+~~~sh
+$ fn deploy --all --local
+Deploying app1 to app: myapp at path: /app1
+Bumped to version 0.0.3
+Building image app1:0.0.3 
+Updating route /app1 using image app1:0.0.3...
+Deploying app2 to app: myapp at path: /app2
+Bumped to version 0.0.2
+Building image app2:0.0.2 
+Updating route /app2 using image app2:0.0.2...
+~~~
+
+application 이름은 myapp, 두개의 function은 /app1, /app2 로 배포됨을 알 수 있다.
+
+배포된 application을 체크해 본다.
+~~~sh
+$ fn apps l
+~~~
+
+배포된 application의 route를 체크해 본다.
+~~~sh
+$ fn routes l myapp
+path	image		endpoint
+/app1	app1:0.0.4	localhost:8080/r/myapp/app1
+/app2	app2:0.0.3	localhost:8080/r/myapp/app2
+~~~
+
+각각의 function을 호출해 본다.
+~~~sh
+$ curl -d "JongGyou" http://localhost:8080/r/myapp/app1
+Hello, JongGyou!
+
+$ curl -d @sample.json http://localhost:8080/r/myapp/app2
+Hello JongGyou from Node!
+~~~
+
+위와같이 하나의 application 이 가지고 있는 function이 여러개 있을 수 있다. 
+
+function 간의 호출 흐름을 제어하기 위해서는 [Function Flow](./fnflow.md)를 살펴보기 바란다.
+
+
+
+
 ---
+# 참고
 
 fn 명령어의 name 파라메터에 대한 결과는 다음을 참조하면 잘 알수 있다.
 ~~~sh
