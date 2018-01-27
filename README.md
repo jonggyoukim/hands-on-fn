@@ -66,7 +66,9 @@ Fn Project의 전체적인 아키텍처는 다음과 같다.
   
 - Windows
 
+    ~~~sh
     https://github.com/fnproject/cli/releases
+    ~~~
     
 # fn
 다운받은 fn 을 수행하면 다음과 같이 나온다.
