@@ -1,13 +1,69 @@
-# 서버리스와 마이크로서비스
+OCI Functions 을 실습하기 위해서 몇가지 설정을 해야 합니다.
 
-서버리스(Serverless)에서는 모든 작업을 수행하는 작은 코드 조각을 함수(Function)라고 한다. 또한 서버리스 클라우드 서비스는 일반적으로 서비스 기능(FAAS)을 제공한다. 따라서 서비스를 통해 환경을 프로비저닝, 확장, 패치 및 유지 관리하는 데 필요한 모든 사항들이 제공된다.
+# 태넌시 설정
 
-마이크로서비스 아키텍처가 현재 유행입니다. 하나의 대규모 단일 서비스를 작성하는 대신 서비스는 동일한 기능 세트를 제공하는 더 작은 서비스로 분해됩니다. 웹 서비스의 개발 및 작성을 단순화합니다. 그러나 각 마이크로 서비스는 여전히 자체 서버를 운영하고 있으며 반드시 규모를 조정하고 관리해야합니다. FAAS는 한 걸음 더 나아갑니다.
+1. 그룹과 유저 생성
+    
+    기본적으로 생성이 된다.
 
-![source:https://github.com/fnproject/docs/blob/master/fn/general/introduction.md](images/fn-mono-to-funcs.png)
+1. 구획 생성
+
+    필요하면 component를 설정한다.
+
+1. VCN 과 서브넷 생성
+
+    `네트워킹 > 가상 클라우드 네트워크` 에서 새로운 vcn을 만든다.
+
+1. 정책 설정
+
+    만약 administrator 라면 다음과 같이 정책을 설정한다.
+    ~~~
+    Allow service FaaS to read repos in tenancy
+
+    Allow service FaaS to use virtual-network-family in compartment <compartment-name>
+    ~~~
+
+    만약 administrator가 아니라면 다음과 같이 설정한다.
+    ~~~
+    Allow group <group-name> to manage repos in tenancy
+
+    Allow group <group-name> to use virtual-network-family in compartment <compartment-name>
+
+    Allow group <group-name> to manage functions-family in compartment <compartment-name>
+
+    Allow group <group-name> to read metrics in compartment <compartment-name>
+    ~~~
 
 
-다음의 순서로 Function에 대해서 알아보도록 합니다.
+# 애플리케이션 생성
+
+Log in to the Console as a functions developer and under Solutions and Platform, go to Developer Services and click Functions, and:
+
+
+Select the region you intend to use for Oracle Functions.
+
+
+Select the compartment in which to create Oracle Functions resources.
+
+
+Click Create Application and specify:
+
+• helloworld-app as the name for the new application. You'll deploy your first function in this application, and specify this application when invoking the function.
+
+• The VCN and subnet in which to run the function.
+
+check mark
+Click Create.
+# 개발환경 구성
+Functions을 다룰 환경을 구성해보도록 합니다. 환경은 3가지의 환경을 구성할 수 있습니다. 필요한 소프트웨어를 설치하고 OCI에 배포하기 위한 환경을 구성합니다.  
+가장 쉬운 방법은 아래의 Cloud Shell 환경을 사용하는 것입니다.
+
+1. [Cloud Shell 환경](oci-functions-cloudshell.md) (추천)
+1. [Local Machine 환경](oci-functions-local.md)
+1. [OCI Compute Instance 환경](oci-functions-vm.md)
+
+
+먼저 OCI Functions의 기본이 되는 Fn-project 를 살펴보도록 합니다.
 
 1. [Fn Project](fn-project.md)
 1. [Fn Context](fn-context.md)
