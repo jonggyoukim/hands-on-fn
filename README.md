@@ -35,26 +35,8 @@ OCI Functions 을 실습하기 위해서 몇가지 설정을 해야 합니다.
     ~~~
 
 
-# 애플리케이션 생성
-
-Log in to the Console as a functions developer and under Solutions and Platform, go to Developer Services and click Functions, and:
-
-
-Select the region you intend to use for Oracle Functions.
-
-
-Select the compartment in which to create Oracle Functions resources.
-
-
-Click Create Application and specify:
-
-• helloworld-app as the name for the new application. You'll deploy your first function in this application, and specify this application when invoking the function.
-
-• The VCN and subnet in which to run the function.
-
-check mark
-Click Create.
 # 개발환경 구성
+
 Functions을 다룰 환경을 구성해보도록 합니다. 환경은 3가지의 환경을 구성할 수 있습니다. 필요한 소프트웨어를 설치하고 OCI에 배포하기 위한 환경을 구성합니다.  
 가장 쉬운 방법은 아래의 Cloud Shell 환경을 사용하는 것입니다.
 
@@ -63,9 +45,13 @@ Functions을 다룰 환경을 구성해보도록 합니다. 환경은 3가지의
 1. [OCI Compute Instance 환경](oci-functions-vm.md)
 
 
+# Fn-Project
+
 먼저 OCI Functions의 기본이 되는 Fn-project 를 살펴보도록 합니다.
 
 1. [Fn Project](fn-project.md)
 1. [Fn Context](fn-context.md)
 1. [Oracle Functions Service](oracle-functions-service.md)
+
+# OCI Functions
 
