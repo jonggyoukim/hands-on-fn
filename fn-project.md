@@ -1,5 +1,5 @@
 
-# Fn Project 가 무엇인가?
+# Fn Project
 Fn Project는 4개의 주요 컴포넌트로 이루어져 있다.
 
 1. Fn Server
@@ -19,7 +19,6 @@ Fn Project는 4개의 주요 컴포넌트로 이루어져 있다.
     개발자는 자신이 선택한 프로그래밍 언어 안에서 모든 기능의 상위 레벨 워크플로우를 구축하고 조율할 수 있다. 긴 json 또는 yaml 템플릿으로 구축된 복잡한 외부 모델을 배우지 않고도 병렬처리, 시퀀싱/체인화, 오류처리, 입출력 등을 쉽게 사용할 수 있다. 무엇보다다도 Flow 는 모든 함수 호출 그래프를 추적하여 대시보드에서 시각화, 전체 Flows의 전체 스택 로그 및 전체 기능 그래프에서의 변수/메모리 재구성을 허용한다.
     
 
-# Fn Project 아키텍처
 Fn Project의 전체적인 아키텍처는 다음과 같다.
 
 ![source:https://github.com/fnproject/docs/blob/master/fn/general/introduction.md](./images/fn-architecture.png)
@@ -47,7 +46,7 @@ Fn Project의 전체적인 아키텍처는 다음과 같다.
     로그에 메트릭스가 생성되어 스케일링 할 때 사용자에게 알릴 수 있다. 대부분의 중요한 것은 동기와 비동기 functions 모두에게서 중요한 것은 *wait_time* 매트릭이다. 만약 *wait_time* 이 증가되면 더 많은 Fn 인스턴스를 시작해야 한다.
 
 
-# Fn 설치
+# Fn 설치 (로컬머신 환경용)
 ## 요구사항
 - Docker 17.05 이상
 - Docker Hub account 
@@ -352,5 +351,4 @@ export FN_REGISTRY=fndemouser
 
 ---
 ### 참고
-
-https://github.com/fnproject/docs/blob/master/fn/general/introduction.md
+- https://github.com/fnproject/docs/blob/master/fn/general/introduction.md

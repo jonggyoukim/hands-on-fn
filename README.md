@@ -8,7 +8,8 @@ OCI Functions 을 실습하기 위해서 몇가지 설정을 해야 합니다.
 
 1. 구획 생성
 
-    필요하면 component를 설정한다.
+    필요하면 `구획(compartment)`를 설정한다.
+    이미 생성된 `구획(compartment)`를 선택한다.
 
 1. VCN 과 서브넷 생성
 
@@ -16,22 +17,20 @@ OCI Functions 을 실습하기 위해서 몇가지 설정을 해야 합니다.
 
 1. 정책 설정
 
-    만약 administrator 라면 다음과 같이 정책을 설정한다.
+    만약 관리자라면 다음과 같이 정책을 설정한다.
     ~~~
-    Allow service FaaS to read repos in tenancy
-
-    Allow service FaaS to use virtual-network-family in compartment <compartment-name>
+    allow service FAAS to use virtual-network-family in tenancy
+    allow service FAAS to read repos in tenancy
     ~~~
 
-    만약 administrator가 아니라면 다음과 같이 설정한다.
+    만약 관리자가 아니라면 다음과 같이 설정한다.
     ~~~
-    Allow group <group-name> to manage repos in tenancy
-
-    Allow group <group-name> to use virtual-network-family in compartment <compartment-name>
-
-    Allow group <group-name> to manage functions-family in compartment <compartment-name>
-
-    Allow group <group-name> to read metrics in compartment <compartment-name>
+    allow group <non-admin-fn-devs> to manage repos in tenancy
+    allow group <non-admin-fn-devs> to use virtual-network-family in tenancy
+    allow group <non-admin-fn-devs> to manage functions-family in tenancy
+    allow group <non-admin-fn-devs> to read metrics in tenancy
+    allow group <non-admin-fn-devs> to read objectstorage-namespaces in tenancy
+    allow group <non-admin-fn-devs> to use cloud-shell in tenancy
     ~~~
 
 
@@ -40,7 +39,7 @@ OCI Functions 을 실습하기 위해서 몇가지 설정을 해야 합니다.
 Functions을 다룰 환경을 구성해보도록 합니다. 환경은 3가지의 환경을 구성할 수 있습니다. 필요한 소프트웨어를 설치하고 OCI에 배포하기 위한 환경을 구성합니다.  
 가장 쉬운 방법은 아래의 Cloud Shell 환경을 사용하는 것입니다.
 
-1. [Cloud Shell 환경](oci-functions-cloudshell.md) (추천)
+1. [Cloud Shell 환경](oci-functions-cloudshell.md) (추천환경)
 1. [Local Machine 환경](oci-functions-local.md)
 1. [OCI Compute Instance 환경](oci-functions-vm.md)
 
@@ -51,7 +50,10 @@ Functions을 다룰 환경을 구성해보도록 합니다. 환경은 3가지의
 
 1. [Fn Project](fn-project.md)
 1. [Fn Context](fn-context.md)
-1. [Oracle Functions Service](oracle-functions-service.md)
+
 
 # OCI Functions
 
+Fn-project를 사용하는 OCI Functions에 대해서 핸즈온 합니다.
+
+1. [Oracle Functions Service](oci-functions.md)
