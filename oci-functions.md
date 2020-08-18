@@ -2,7 +2,7 @@
 
 Oracle Cloud Infrastructure 의 Functions을 사용해 봅니다.
 
-# application 생성
+# 애플리케이션 생성
 
 1. Functions(함수) 서비스를 수행하기 위하여 왼쪽 위 햄버거 아이콘을 눌러 `개발자 서비스 > 함수`를 클릭합니다.
 
